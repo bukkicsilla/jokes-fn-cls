@@ -50,7 +50,11 @@ const JokeListFn = ({ numJokesToGet = 5 }) => {
       )
     );
   };
-
+  const reset = (id) => {
+    setJokes((prevJokes) =>
+      prevJokes.map((joke) => (joke.id === id ? { ...joke, votes: 0 } : joke))
+    );
+  };
   if (isLoading) {
     return (
       <div className="loading">
@@ -66,7 +70,14 @@ const JokeListFn = ({ numJokesToGet = 5 }) => {
       </button>
 
       {sortedJokes.map(({ joke, id, votes }) => (
-        <JokeFn text={joke} key={id} id={id} votes={votes} vote={vote} />
+        <JokeFn
+          text={joke}
+          key={id}
+          id={id}
+          votes={votes}
+          vote={vote}
+          reset={reset}
+        />
       ))}
     </div>
   );
